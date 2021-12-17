@@ -92,6 +92,7 @@ public:
     four_ple read_quat(bool);
     vector read_lin_acc();
     vector read_euler();
+    float read_angle(int);
     vector read_grv_acc();
     vector read_euler2();
     void print_state();
@@ -99,8 +100,3 @@ public:
     void update();
 };
 #endif
-
-/*
-For More information Download the Datasheet of The Senser from:
-    https://cdn-shop.adafruit.com/datasheets/BST_BNO055_DS000_12.pdf
-*/

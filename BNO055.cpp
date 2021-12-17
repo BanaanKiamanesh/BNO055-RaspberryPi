@@ -107,6 +107,33 @@ void BNO055::update() // Update All Measurements
     read_grv_acc();
 }
 
+float BNO055::read_angle(int type)
+{
+    /* type =
+    1: Roll
+    2: Pitch
+    3: Yaw
+    */
+
+    vector angles = read_euler2();
+    float angle;
+    switch (type)
+    {
+    case 1:
+        angle = angles.x;
+        break;
+
+    case 2:
+        angle = angles.y;
+        break;
+
+    case 3:
+        angle = angles.z;
+        break;
+    }
+    return angle;
+}
+
 void BNO055::print_state() // Print All Read States
 {
     update();
