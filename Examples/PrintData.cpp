@@ -4,6 +4,8 @@
 
 #include "BNO055.h"
 #include <iostream>
+#include <stdlib.h>
+#include <string.h>
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 
