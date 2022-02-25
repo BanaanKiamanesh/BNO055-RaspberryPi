@@ -1,5 +1,5 @@
 /*
-    This Code Reads the Data from the Sensor and Stores it in a CSV File.
+    This Code Reads the Data from the Sensor for 5 Seconds and Stores it in a CSV File.
     The Data is Being Read in a Constant Frequency of 50Hz.
     Data Contains of:
         1. Accelerometer Data
