@@ -81,7 +81,6 @@ private:
     vector euler, acc, mag, gyro, euler2, lin_acc, grv_acc;
     four_ple quat;
     int I2C_FD;
-    int16_t read_reg_16(int);
     int cal_total, cal_gyro, cal_acc, cal_mag;
 
 public:

@@ -20,41 +20,35 @@ BNO055::BNO055() // Funtion to Primarily Init the operation and power registers
     update();
 }
 
-int16_t BNO055::read_reg_16(int addr) // Function to read the back to back registers
-{
-    int16_t val = (int16_t)((wiringPiI2CReadReg8(I2C_FD, addr + 1) << 8) | wiringPiI2CReadReg8(I2C_FD, addr));
-    return val;
-}
-
 vector BNO055::read_acc() // Read the Accelerometer and Scale
 {
-    acc.x = (int16_t)(read_reg_16(REG_ACC_X)) / 100.00; // m/s^2
-    acc.y = (int16_t)(read_reg_16(REG_ACC_Y)) / 100.00; // m/s^2
-    acc.z = (int16_t)(read_reg_16(REG_ACC_Z)) / 100.00; // m/s^2
+    acc.x = (int16_t)wiringPiI2CReadReg16(I2C_FD, REG_ACC_X) / 100.00; // m/s^2
+    acc.y = (int16_t)wiringPiI2CReadReg16(I2C_FD, REG_ACC_Y) / 100.00; // m/s^2
+    acc.z = (int16_t)wiringPiI2CReadReg16(I2C_FD, REG_ACC_Z) / 100.00; // m/s^2
     return acc;
 }
 
 vector BNO055::read_mag() // Read the Magenetometers and Scale
 {
-    mag.x = (int16_t)(read_reg_16(REG_MAG_X)) / 16.00; // mT
-    mag.y = (int16_t)(read_reg_16(REG_MAG_Y)) / 16.00; // mT
-    mag.z = (int16_t)(read_reg_16(REG_MAG_Z)) / 16.00; // mT
+    mag.x = (int16_t)wiringPiI2CReadReg16(I2C_FD, REG_MAG_X) / 16.00; // mT
+    mag.y = (int16_t)wiringPiI2CReadReg16(I2C_FD, REG_MAG_Y) / 16.00; // mT
+    mag.z = (int16_t)wiringPiI2CReadReg16(I2C_FD, REG_MAG_Z) / 16.00; // mT
     return mag;
 }
 
 vector BNO055::read_gyro() // Read the Gyroscopes and Scale
 {
-    gyro.x = (int16_t)(read_reg_16(REG_GYRO_X)) / 16.00; // Degrees/Sec
-    gyro.y = (int16_t)(read_reg_16(REG_GYRO_Y)) / 16.00; // Degrees/Sec
-    gyro.z = (int16_t)(read_reg_16(REG_GYRO_Z)) / 16.00; // Degrees/Sec
+    gyro.x = (int16_t)wiringPiI2CReadReg16(I2C_FD, REG_GYRO_X) / 16.00; // Degrees/Sec
+    gyro.y = (int16_t)wiringPiI2CReadReg16(I2C_FD, REG_GYRO_Y) / 16.00; // Degrees/Sec
+    gyro.z = (int16_t)wiringPiI2CReadReg16(I2C_FD, REG_GYRO_Z) / 16.00; // Degrees/Sec
     return gyro;
 }
 
 vector BNO055::read_euler() // Read the Euler Angles and Scale
 {
-    euler.z = (int16_t)(read_reg_16(YAW_REG)) / 16.00;   // Degrees
-    euler.y = (int16_t)(read_reg_16(ROLL_REG)) / 16.00;  // Degrees
-    euler.x = (int16_t)(read_reg_16(PITCH_REG)) / 16.00; // Degrees
+    euler.z = (int16_t)wiringPiI2CReadReg16(I2C_FD, YAW_REG)   / 16.00;   // Degrees
+    euler.y = (int16_t)wiringPiI2CReadReg16(I2C_FD, ROLL_REG)  / 16.00;  // Degrees
+    euler.x = (int16_t)wiringPiI2CReadReg16(I2C_FD, PITCH_REG) / 16.00; // Degrees
     return euler;
 }
 
@@ -66,10 +60,10 @@ vector BNO055::read_euler2() // Return the Euler Angles Calculated From the Quat
 
 four_ple BNO055::read_quat(bool euler_update) // Read Quaternions
 {
-    quat.q0 = (int16_t)(read_reg_16(Q0_REG)) / (pow(2, 14));
-    quat.q1 = (int16_t)(read_reg_16(Q1_REG)) / (pow(2, 14));
-    quat.q2 = (int16_t)(read_reg_16(Q2_REG)) / (pow(2, 14));
-    quat.q3 = (int16_t)(read_reg_16(Q3_REG)) / (pow(2, 14));
+    quat.q0 = (int16_t)wiringPiI2CReadReg16(I2C_FD, Q0_REG) / (pow(2, 14));
+    quat.q1 = (int16_t)wiringPiI2CReadReg16(I2C_FD, Q1_REG) / (pow(2, 14));
+    quat.q2 = (int16_t)wiringPiI2CReadReg16(I2C_FD, Q2_REG) / (pow(2, 14));
+    quat.q3 = (int16_t)wiringPiI2CReadReg16(I2C_FD, Q3_REG) / (pow(2, 14));
 
     if (euler_update) // Calculate Euler Angles due to Quaternions
     {
@@ -82,17 +76,17 @@ four_ple BNO055::read_quat(bool euler_update) // Read Quaternions
 
 vector BNO055::read_lin_acc() // Read Linear Acceleration
 {
-    lin_acc.x = (int16_t)(read_reg_16(Q0_REG)) / 100.00; // m/s^2
-    lin_acc.y = (int16_t)(read_reg_16(Q0_REG)) / 100.00; // m/s^2
-    lin_acc.z = (int16_t)(read_reg_16(Q0_REG)) / 100.00; // m/s^2
+    lin_acc.x = (int16_t)wiringPiI2CReadReg16(I2C_FD, Q0_REG) / 100.00; // m/s^2
+    lin_acc.y = (int16_t)wiringPiI2CReadReg16(I2C_FD, Q0_REG) / 100.00; // m/s^2
+    lin_acc.z = (int16_t)wiringPiI2CReadReg16(I2C_FD, Q0_REG) / 100.00; // m/s^2
     return lin_acc;
 }
 
 vector BNO055::read_grv_acc() // Read Linear Acceleration
 {
-    grv_acc.x = (int16_t)(read_reg_16(Q0_REG)) / 100.00; // m/s^2
-    grv_acc.y = (int16_t)(read_reg_16(Q0_REG)) / 100.00; // m/s^2
-    grv_acc.z = (int16_t)(read_reg_16(Q0_REG)) / 100.00; // m/s^2
+    grv_acc.x = (int16_t)wiringPiI2CReadReg16(I2C_FD, Q0_REG) / 100.00; // m/s^2
+    grv_acc.y = (int16_t)wiringPiI2CReadReg16(I2C_FD, Q0_REG) / 100.00; // m/s^2
+    grv_acc.z = (int16_t)wiringPiI2CReadReg16(I2C_FD, Q0_REG) / 100.00; // m/s^2
     return grv_acc;
 }
 
