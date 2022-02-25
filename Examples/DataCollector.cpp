@@ -13,7 +13,6 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
-#include <string>
 #include <wiringPi.h>
 #include <wiringPiI2C.h>
 
